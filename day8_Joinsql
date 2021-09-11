@@ -231,4 +231,43 @@ drop column yas;
  alter table personel
  Rename column ulke_isim to  ulke_adi;
  
+ --ORNEK5: personel tablosunun adini insan kaynaklarý olarak degistiriniz.
+ 
+ alter table personel
+ rename to insan_kaynaklari;
+ 
+  select * from insan_kaynaklari;  -- artýk böyle cagýrýrýz
+  
+ --ORNEK6: isciler tablosundaki ulke_adi sutununa NOT NULL kisitlamasi ve varchar2(30) ekleyiniz.
+ 
+ alter table insan_kaynaklari
+ MODIFY ulke_adi VARCHAR2(30);
+ 
+ select * from insan_kaynaklari;
+ 
+ --Maas'ý UNIQUE yap
+ 
+ --Alter table insan_kaynaklari
+ --MODIFY maas UNIQUE;             -- TEKRARLI MAAS VERÝSÝ OLDUGU ÝÇÝN HATA VERÝR.
+ 
+ 
+ Alter table insan_kaynaklari
+ MODIFY id UNIQUE;
+ 
+ select * from insan_kaynaklari;
+ 
+ 
+ alter table insan_kaynaklari
+ MODIFY maas CHECK (maas >3000); -- BUNDAN SONRA 3000'DEN DÜÞÜK MAAÞ VEREMEM.
+ 
+ 
+ --ORNEK3: Tüm bolumlerde calisan personelin isimlerini, bolum isimlerini ve
+ -- maaslarini bolum_id ve maas ters sirali listeleyiniz.
+ -- NOT: calisani olmasa bile bolum ismi gosterilmelidir.
+ 
+ Select bolum_isim,personel_isim,maas
+ from bolumler b
+ left JOIN personel p
+ ON p.bolum_id=b.bolum_id
+ order by  b.bolum_id,maas desc;
  
