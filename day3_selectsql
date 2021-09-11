@@ -1,0 +1,80 @@
+---------SELECT WHERE---------
+
+CREATE TABLE ogrenciler
+    (
+        id NUMBER(9),
+        isim VARCHAR2(50),
+        adres VARCHAR2(100),
+        sinav_notu NUMBER(3)
+    );
+    
+    
+    
+    INSERT INTO ogrenciler VALUES(123, 'Ali Can', 'Ankara',75);
+    INSERT INTO ogrenciler VALUES(124, 'Merve Gul', 'Ankara',85);
+    INSERT INTO ogrenciler VALUES(125, 'Kemal Yasa', 'Istanbul',85);
+
+   select * from ogrenciler;
+   
+   ---ÖRNEK---
+   --Sınav notu 80'den büyük olan öğrencilerin tüm bilgilerini listele
+   
+   select * from ogrenciler where sinav_notu>80;
+   
+   ---örnek2 : adresi Ankara olan ögrencilerin isim ve adres bilgilerini listele
+   
+   select isim,adres from ogrenciler where adres='Ankara';
+   
+   -- Örnek3: İd'si 124 olan ögrencilerin tüm bilgilerini sil
+   
+  delete from ogrenciler where id=124; 
+  
+  -------------select  BETWEEN------------------
+  
+  CREATE TABLE personel
+    (
+        id CHAR(5),
+        isim VARCHAR2(50),
+        maas NUMBER(5)
+    );
+    INSERT INTO personel VALUES('10001', 'Ahmet Aslan', 7000);
+    INSERT INTO personel VALUES( '10002', 'Mehmet Yılmaz' ,12000);
+    INSERT INTO personel VALUES('10003', 'Meryem ', 7215);
+    INSERT INTO personel VALUES('10004', 'Veli Han', 5000);
+    INSERT INTO personel VALUES('10005', 'Mustafa Ali', 5500);
+    INSERT INTO personel VALUES('10005', 'Ayşe Can', 4000);
+    SELECT * FROM personel;
+    
+   -- 1 yöntem çözüm
+    select * from personel where id between '10002' and '10005';
+  
+    -- 2 yöntem çözüm
+    
+    select * from personel where id>='10002' and id<='10005';
+    
+   -- örnek 5 : ismi mehmet yılmaz ile veli han arasındaki personel bilgilerini listele
+   
+   select * from personel where isim between 'Mehmet Yılmaz' and 'Veli Han';
+   
+   -- ornek6: id si 10002-10004 arasında olmayan personelin adını listele
+   
+   select id , maas from personel where id NOT between '10002' AND '10004';
+   
+ /* ======================= SELECT - IN ======================================
+    IN birden fazla mantıksal ifade ile tanımlayabileceğimiz durumları 
+    tek komutla yazabilme imkânı verir
+    SYNTAX:
+    -------
+    SELECT sutun1,sutun2, ...
+    FROM tablo_adı
+    WHERE sutun_adı IN (deger1, deger2, ...);
+/* ========================================================================== */
+
+   
+   ----ÖRNEK 7  maası 4000,5000,7000 olan pesonel bilgileri listele
+ 
+ select * from personel where maas IN(4000,5000,7000);
+ 
+
+ 
+   

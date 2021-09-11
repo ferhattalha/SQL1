@@ -1,0 +1,113 @@
+/*--Aþaðýdaki gibi tedarikciler adýnda bir tablo oluþturunuz ve vergi_no
+   --sutununu primary key yapýnýz. Ayrýca aþaðýdaki verileri tabloya giriniz.
+    
+    vergi_no NUMBER(3),
+    firma_ismi VARCHAR2(50),
+    irtibat_ismi VARCHAR2(50),
+    INSERT INTO tedarikciler VALUES (101, 'IBM', 'Kim Yon');
+	INSERT INTO tedarikciler VALUES (102, 'Huawei', 'Çin Li');
+	INSERT INTO tedarikciler VALUES (103, 'Erikson', 'Maki Tammamen');
+    INSERT INTO tedarikciler VALUES (104, 'Apple', 'Adam Eve');
+   -- Sonrasýnda aþaðýdaki gibi urunler adýnda bir baþka tablo oluþturunuz ve bu
+   -- tablonun ted_vergino sutunu ile tedarikciler tablosunun vergi_no sutunu
+   -- iliþkilendiriniz. Verileri giriniz.
+    ted_vergino NUMBER(3),
+    urun_id NUMBER(11),
+    urun_isim VARCHAR2(50),
+    musteri_isim VARCHAR2(50),
+    INSERT INTO urunler VALUES(101, 1001,'Laptop', 'Ayþe Can');
+    INSERT INTO urunler VALUES(102, 1002,'Phone', 'Fatma Aka');
+    INSERT INTO urunler VALUES(102, 1003,'TV', 'Ramazan Öz');
+    INSERT INTO urunler VALUES(102, 1004,'Laptop', 'Veli Han');
+    INSERT INTO urunler VALUES(103, 1005,'Phone', 'Canan Ak');
+    INSERT INTO urunler VALUES(104, 1006,'TV', 'Ali Bak');
+    INSERT INTO urunler VALUES(104, 1007,'Phone', 'Aslan Yýlmaz');*/
+    
+    create table tedarikciler (
+    
+    vergi_no NUMBER(3) PRIMARY KEY,
+    firma_ismi VARCHAR(50),
+    irtibat_ismi VARCHAR2(50)
+    
+    );
+    
+      INSERT INTO tedarikciler VALUES (101, 'IBM', 'Kim Yon');
+	INSERT INTO tedarikciler VALUES (102, 'Huawei', 'Çin Li');
+	INSERT INTO tedarikciler VALUES (103, 'Erikson', 'Maki Tammamen');
+    INSERT INTO tedarikciler VALUES (104, 'Apple', 'Adam Eve');
+    
+    create table urunleri(
+    
+    ted_vergino NUMBER(3),
+    urun_id NUMBER(11),
+    urun_isim VARCHAR2(50),
+    musteri_isim VARCHAR2(50),
+    CONSTRAINT urunler_fk FOREIGN KEY(ted_vergino) REFERENCES tedarikciler (vergi_no)
+    );
+    
+     INSERT INTO urunleri VALUES(101, 1001,'Laptop', 'Ayþe Can');
+    INSERT INTO urunleri VALUES(102, 1002,'Phone', 'Fatma Aka');
+    INSERT INTO urunleri VALUES(102, 1003,'TV', 'Ramazan Öz');
+    INSERT INTO urunleri VALUES(102, 1004,'Laptop', 'Veli Han');
+    INSERT INTO urunleri VALUES(103, 1005,'Phone', 'Canan Ak');
+    INSERT INTO urunleri VALUES(104, 1006,'TV', 'Ali Bak');
+    INSERT INTO urunleri VALUES(104, 1007,'Phone', 'Aslan Yýlmaz');
+    
+   select * from urunleri;
+    select * from tedarikciler;
+    
+    -- SYNTAX
+    ----------
+    -- UPDATE tablo_adý
+    -- SET sutun1 = yeni_deger1, sutun2 = yeni_deger2,...
+    -- WHERE koþul;
+    
+    
+    -- ÖRNEK 1 : Vergi numarasý 101 olan tedarikçinin firma ismini LG olarak güncelleyin
+    
+    Update tedarikciler Set firma_ismi='LG'  where vergi_no='101';
+    
+    SELECT *FROM tedarikciler;
+    
+    
+    -- ÖRNEK 2: Tüm firma isimlerini Samsung olarak güncelle
+    
+    Update tedarikciler Set firma_ismi='Samsung';
+    
+    
+    -- ÖRNEK 3: vergi_no’su 102 olan tedarikcinin ismini 'Lenovo' ve irtibat_ismi’ni
+  --'Ali Veli' olarak güncelleyeniz.
+    
+ Update tedarikciler Set firma_ismi='Lenovo', irtibat_ismi='Ali Veli' Where vergi_no='102';
+ 
+ 
+ -- ÖRNEK 4: firma ismi Samsung olan tedarikçinin irtibat ismini Ayse Yýlmaz olarak güncelleyiniz
+ 
+ 
+ UPDATE tedarikciler  SET irtibat_ismi='Ayse Yilmaz'
+  WHERE firma_ismi='Samsung';
+  
+  -- ÖRNEK 5: ürün tablosundaki urun_id  degeri 1004 ten büyük olanlarýn urun_id degerlerini bir artýrýnýz
+  
+  UPDATE urunleri SET urun_id=urun_id+1 where urun_id>1004;
+  select * from urunleri;
+  
+   -- ÖRNEK 6: urunler tablosundaki tüm ürünlerin urun_id deðerini ted_vergino
+  --sutun deðeri ile toplayarak güncelleyiniz.
+  
+   UPDATE urunleri  SET urun_id = urun_id + ted_vergino;
+  SELECT * FROM urunleri;
+  
+  
+  /* ÖRNEK 7: urunler tablosundan Ali Bak’in aldigi urunun ismini, TEDARÝKCÝ
+ TABLOSUNDA ÝRTÝBAT_ÝSMÝ 'Adam Eve' OLAN FÝRMANIN ÝSMÝ (FÝRMA_ÝSMÝ) ile
+ degistiriniz. */
+
+Update urunleri Set urun_isim='Apple' where musteri_isim='Ali Bak';
+   
+   
+   -- ORNEK9: Laptop satin alan musterilerin ismini, Apple’in irtibat_isim'i ile
+--degistirin
+
+
+
